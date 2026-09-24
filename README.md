@@ -8,7 +8,7 @@ A short description of what NexaScan Web does and who it's for.
 - Feature two
 - Feature three
 
-## Getting Started
+## Getting Started 
 
 ### Prerequisites
 
