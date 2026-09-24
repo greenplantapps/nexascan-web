@@ -1,0 +1,22 @@
+<header class="site-header" data-header>
+  <div class="container header-inner">
+    <a class="brand" href="{{root}}" aria-label="NexaScan home">
+      <img src="{{root}}assets/brand/nexascan-logo.png" alt="" width="36" height="36">
+      <span class="brand-name">Nexa<span>Scan</span></span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" data-nav-toggle>
+      <span class="nav-toggle-bar" aria-hidden="true"></span>
+      <span class="visually-hidden">Menu</span>
+    </button>
+    <nav id="site-nav" class="site-nav" aria-label="Main" data-nav>
+      <ul>
+        <li><a href="{{root}}features/" {{nav:features}}>Features</a></li>
+        <li><a href="{{root}}privacy/" {{nav:privacy}}>Privacy</a></li>
+        <li><a href="{{root}}pricing/" {{nav:pricing}}>Pricing</a></li>
+        <li><a href="{{root}}faq/" {{nav:faq}}>FAQ</a></li>
+        <li><a href="{{root}}support/" {{nav:support}}>Support</a></li>
+      </ul>
+      <a class="button button-small" href="{{store_href}}" {{store_rel}}>{{store_label}}</a>
+    </nav>
+  </div>
+</header>

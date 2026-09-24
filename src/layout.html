@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <link rel="canonical" href="{{canonical}}">
+  <meta name="theme-color" content="#011F36">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="NexaScan">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{canonical}}">
+  <meta property="og:image" content="{{og_image}}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NexaScan – AI Scanner &amp; PDF Tools">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="{{root}}assets/brand/favicon-48.png" sizes="48x48" type="image/png">
+  <link rel="icon" href="{{root}}assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="{{root}}assets/brand/apple-touch-icon.png">
+  <link rel="stylesheet" href="{{root}}assets/css/site.css">
+  <script src="{{root}}assets/js/site.js" defer></script>
+</head>
+<body class="{{bodyClass}}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {{include:header}}
+  <main id="main">
+{{content}}
+  </main>
+  {{include:footer}}
+</body>
+</html>

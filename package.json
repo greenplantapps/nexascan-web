@@ -1,0 +1,20 @@
+{
+  "name": "nexascan-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The public product website for NexaScan – AI Scanner & PDF Tools.",
+  "type": "module",
+  "scripts": {
+    "images": "node scripts/images.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/check.mjs",
+    "serve": "node scripts/serve.mjs",
+    "verify": "npm run build && npm run check"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

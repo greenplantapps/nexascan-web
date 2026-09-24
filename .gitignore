@@ -1,0 +1,6 @@
+node_modules/
+dist/
+# Raw device captures are private working files: only the reviewed, optimised WebP in assets/screenshots is published.
+screenshots-raw/
+.DS_Store
+Thumbs.db

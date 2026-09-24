@@ -1,0 +1,17 @@
+{
+  "$comment": "Owner-editable settings. storeUrl: paste the real Google Play listing URL when it exists; while empty, every download button reads 'Coming soon on Google Play' and links to the download section. siteUrl: the deployed root (change it when a custom domain is added). Items in knownPlaceholders are owner inputs still outstanding; scripts/check.mjs fails if a page publishes any other [... REQUIRED] marker.",
+  "siteUrl": "https://greenplantapps.github.io/nexascan-web/",
+  "storeUrl": "",
+  "appName": "NexaScan",
+  "descriptor": "AI Scanner & PDF Tools",
+  "developer": "GreenPlant Technologies",
+  "supportEmail": "[SUPPORT EMAIL REQUIRED]",
+  "privacyEmail": "[PRIVACY CONTACT EMAIL REQUIRED]",
+  "policyDate": "24 September 2026",
+  "knownPlaceholders": [
+    "[SUPPORT EMAIL REQUIRED]",
+    "[PRIVACY CONTACT EMAIL REQUIRED]",
+    "[LEGAL ENTITY DETAILS REQUIRED]",
+    "[GOVERNING LAW REQUIRED]"
+  ]
+}
