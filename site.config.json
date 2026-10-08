@@ -1,5 +1,5 @@
 {
-  "$comment": "Owner-editable settings. storeUrl: paste the real Google Play listing URL when it exists; while empty, every download button reads 'Coming soon on Google Play' and links to the download section. siteUrl: the deployed root (change it when a custom domain is added). Items in knownPlaceholders are owner inputs still outstanding; scripts/check.mjs fails if a page publishes any other [... REQUIRED] marker.",
+  "$comment": "Owner-editable settings. storeUrl: paste the real Google Play listing URL when it exists; while empty, every download button reads 'Coming to Google Play' and links to the download section. siteUrl: the deployed root (change it when a custom domain is added). Items in knownPlaceholders are owner inputs still outstanding (see docs/OWNER-DETAILS-NEEDED.md); scripts/check.mjs fails if a page publishes any other [... REQUIRED] marker.",
   "siteUrl": "https://greenplantapps.github.io/nexascan-web/",
   "storeUrl": "",
   "appName": "NexaScan",
@@ -7,11 +7,13 @@
   "developer": "GreenPlant Technologies",
   "supportEmail": "[SUPPORT EMAIL REQUIRED]",
   "privacyEmail": "[PRIVACY CONTACT EMAIL REQUIRED]",
-  "policyDate": "24 September 2026",
+  "policyDate": "[POLICY EFFECTIVE DATE REQUIRED]",
   "knownPlaceholders": [
     "[SUPPORT EMAIL REQUIRED]",
     "[PRIVACY CONTACT EMAIL REQUIRED]",
+    "[POLICY EFFECTIVE DATE REQUIRED]",
     "[LEGAL ENTITY DETAILS REQUIRED]",
+    "[LICENCE DATA RETENTION REQUIRED]",
     "[GOVERNING LAW REQUIRED]"
   ]
 }

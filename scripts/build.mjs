@@ -9,6 +9,7 @@
 //   {{nav:<key>}}    aria-current="page" on the active nav link
 //   {{include:name}} a partial from src/partials
 //   {{config:key}}   a value from site.config.json (store URL, contact email …)
+//   {{gen:name}}     HTML generated from src/data/plans.json (Free/Pro facts), so no page repeats that list by hand
 // Pages at src/pages/<name>/index.html become dist/<name>/index.html, so /privacy/ works directly.
 import { readFile, writeFile, mkdir, readdir, cp, rm, stat } from 'node:fs/promises';
 import path from 'node:path';
@@ -18,6 +19,36 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const src = path.join(root, 'src');
 const dist = path.join(root, 'dist');
 const config = JSON.parse(await readFile(path.join(root, 'site.config.json'), 'utf8'));
+const plans = JSON.parse(await readFile(path.join(src, 'data', 'plans.json'), 'utf8'));
+
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+const proTag = '<span class="tag tag-pro">Pro</span>';
+const cell = (v) => (v === true ? '<span class="yes" aria-label="Included">✓</span>'
+  : v === false ? '<span class="no" aria-label="Not included">–</span>' : esc(v));
+
+// Generated sections. Each returns HTML built only from plans.json.
+const generators = {
+  'tool-groups': () => plans.groups.map((g) => `
+        <article class="group reveal">
+          <h3>${esc(g.name)}</h3>
+          <p>${esc(g.summary)}</p>
+          <ul class="tool-list">
+${g.tools.map((t) => `            <li><strong>${esc(t.name)}${t.tier === 'pro' ? ` ${proTag}` : ''}</strong><span>${esc(t.benefit)}${t.limit ? ` <em>Free: ${esc(t.limit)}.</em>` : ''}</span></li>`).join('\n')}
+          </ul>
+        </article>`).join('\n'),
+  'compare-table': () => `<div class="table-wrap compare-table"><table>
+          <caption class="visually-hidden">What NexaScan Free and NexaScan Pro include</caption>
+          <thead><tr><th scope="col">Feature</th><th scope="col">Free</th><th scope="col">Pro</th></tr></thead>
+          <tbody>
+${plans.compare.map((r) => `            <tr><th scope="row">${esc(r.feature)}</th><td>${cell(r.free)}</td><td>${cell(r.pro)}</td></tr>`).join('\n')}
+          </tbody>
+        </table></div>`,
+  'pro-highlights': () => plans.proHighlights.map((h) => `<li>${esc(h)}</li>`).join('\n          '),
+  'free-looks': () => esc(plans.looks.free.join(', ').replace(/, ([^,]+)$/, ' and $1')),
+  'price-line': () => (plans.pricing.confirmed
+    ? `${esc(plans.pricing.monthly)} a month or ${esc(plans.pricing.annual)} a year in the ${esc(plans.pricing.region)}. Google Play shows the price for your country before you pay.`
+    : 'Monthly or yearly subscription. Google Play shows the price for your country before you pay.'),
+};
 
 async function walk(dir) {
   const out = [];
@@ -41,6 +72,10 @@ function render(template, vars, depth = 0) {
     .replace(/\{\{include:([\w-]+)\}\}/g, (_, name) => {
       if (!(name in partials)) throw new Error(`unknown partial ${name}`);
       return render(partials[name], vars, depth + 1);
+    })
+    .replace(/\{\{gen:([\w-]+)\}\}/g, (_, name) => {
+      if (!(name in generators)) throw new Error(`unknown generator ${name}`);
+      return generators[name]();
     })
     .replace(/\{\{config:([\w.]+)\}\}/g, (_, key) => {
       const value = key.split('.').reduce((o, k) => o?.[k], config);

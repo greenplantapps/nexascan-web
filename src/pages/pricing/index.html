@@ -1,9 +1,9 @@
-<!--{"title":"Pricing – NexaScan","description":"NexaScan is free to download with a full scanner and PDF toolkit. NexaScan Pro adds exact-layout Word conversion, complex Excel tables and text selection across scanned pages.","nav":"pricing"}-->
+<!--{"title":"Pricing: NexaScan Free and Pro","description":"NexaScan is free to download, with a document scanner, on-device text recognition and everyday PDF tools. NexaScan Pro lifts the Free limits and adds editing, protection and layout-faithful conversion.","nav":"pricing"}-->
 <section class="page-hero" aria-labelledby="pricing-title">
   <div class="container">
     <p class="eyebrow">Pricing</p>
-    <h1 id="pricing-title">Free to start. Pro when your documents get serious.</h1>
-    <p class="lead">NexaScan's scanner and PDF toolkit are free. Pro is for people who turn documents into editable files every day, and want them to come out right the first time.</p>
+    <h1 id="pricing-title">Free for everyday scanning. Pro for bigger jobs.</h1>
+    <p class="lead">The scanner, text recognition and most PDF tools are free. Pro lifts the Free limits and adds the tools for editing, protecting and converting documents that matter.</p>
   </div>
 </section>
 
@@ -12,25 +12,22 @@
     <div class="plans">
       <article class="plan reveal">
         <h2 class="h3">Free</h2>
-        <p class="plan-price">Free download, no account needed</p>
+        <p class="plan-price">Free download. No account, no ads, no watermark on your files.</p>
         <ul>
-          <li>Document scanner with page detection and Auto Capture</li>
-          <li>One-tap clean-up looks</li>
-          <li>On-device text recognition and searchable PDFs</li>
-          <li>PDF and photo to Word and Excel</li>
-          <li>Merge, split, compress, organise and convert PDFs</li>
-          <li>Signatures, watermarks, page numbers and password protection</li>
-          <li>No NexaScan watermark on your files</li>
+          <li>Document scanner with live page detection and Auto Capture</li>
+          <li>Five clean-up looks: {{gen:free-looks}}</li>
+          <li>On-device text recognition: searchable PDFs and Extract Text</li>
+          <li>Sign PDF, merge, split, compress and organise pages</li>
+          <li>PDF and photos to Word, Excel and images</li>
+          <li>Generous limits for everyday jobs: 10 pages, 3 files, 50 MB</li>
         </ul>
         <a class="button button-ghost" href="{{store_href}}" {{store_rel}}>{{store_label}}</a>
       </article>
       <article class="plan plan-pro reveal reveal-delay-1">
         <h2 class="h3">NexaScan Pro</h2>
-        <p class="plan-price">Monthly or yearly subscription. Prices are shown in Google Play.</p>
+        <p class="plan-price">{{gen:price-line}}</p>
         <ul>
-          <li><strong>Word Pro:</strong> editable Word documents that keep the exact page layout</li>
-          <li><strong>Excel Pro:</strong> complex tables, merged cells and styles carried across</li>
-          <li><strong>Select text on any scan:</strong> press and drag across lines and pages, then copy or share</li>
+          {{gen:pro-highlights}}
           <li>Everything in Free</li>
         </ul>
         <a class="button button-light" href="{{store_href}}" {{store_rel}}>{{store_label}}</a>
@@ -39,23 +36,25 @@
   </div>
 </section>
 
-<section class="section section-tint" aria-labelledby="why-title">
-  <div class="container prose">
-    <h2 id="why-title" style="margin-top:0">Why upgrade?</h2>
-    <p>Free already converts documents to Word and Excel. It rebuilds the content as clean paragraphs and simple tables, which is ideal when you mainly need the words. Pro goes further for the documents that matter most:</p>
-    <ul>
-      <li><strong>Contracts, forms and reports</strong> come out looking like the original, with the layout, columns, headers and pictures where you expect them, and still fully editable.</li>
-      <li><strong>Invoices, statements and spreadsheets</strong> keep complex tables intact, so you can edit the figures instead of retyping them.</li>
-      <li><strong>Scanned documents</strong> become text you can select, copy and share directly from the page.</li>
-    </ul>
-    <p>Pro, like everything else in NexaScan, runs on your phone. Upgrading doesn't send your documents anywhere.</p>
+<section class="section section-tint" aria-labelledby="compare-title">
+  <div class="container" style="max-width:960px">
+    <div class="section-head reveal">
+      <h2 id="compare-title">Free and Pro, side by side</h2>
+      <p class="lead">Exactly what the app checks. Pro lifts the Free limits for work done on your phone.</p>
+    </div>
+    {{gen:compare-table}}
+  </div>
+</section>
 
-    <h2>How billing works</h2>
+<section class="section" aria-labelledby="billing-title">
+  <div class="container prose">
+    <h2 id="billing-title" style="margin-top:0">How billing works</h2>
     <ul>
-      <li>Subscribe in the app. Google Play handles payment, renewal and refunds, and we never see your card details.</li>
+      <li>Subscribe in the app, monthly or yearly. Google Play handles payment, renewal and refunds, and we never see your card details.</li>
       <li>Subscriptions renew automatically. Cancel at any time in <strong>Google Play › Payments &amp; subscriptions</strong>, and keep Pro until the end of the period you've paid for.</li>
-      <li>Your subscription is linked to your Google account, so you can restore it on a new phone.</li>
-      <li>Any free trial or introductory offer is shown in Google Play before you confirm.</li>
+      <li>Your subscription belongs to your Google account, so you can restore it on a new phone with <strong>Restore purchases</strong>.</li>
+      <li>Any introductory offer is shown in Google Play before you confirm.</li>
+      <li>Upgrading doesn't change how your documents are handled: they are still processed on your phone.</li>
     </ul>
     <p>Questions? See the <a href="{{root}}faq/">FAQ</a> or <a href="{{root}}support/">contact support</a>.</p>
   </div>
