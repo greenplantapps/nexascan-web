@@ -53,8 +53,9 @@ This is the most useful genuine link the site can have.
     (a Domain property is not possible on github.io);
   - with a custom domain: choose **Domain**, enter the domain, and add the **TXT** record Google shows to your DNS.
 - [ ] For the URL-prefix property choose the **HTML tag** method and copy only the `content` value, e.g.
-      `<meta name="google-site-verification" content="THIS-PART">`. Give `THIS-PART` to Claude: the build will add
-      the tag to every page. Once that version is live, press **Verify**.
+      `<meta name="google-site-verification" content="THIS-PART">`. Paste `THIS-PART` into `site.config.json` →
+      `seo.googleSiteVerification` (or give it to Claude): the build adds the tag to the home page. Once that
+      version is live, press **Verify**.
 - [ ] Never remove the tag (or TXT record) afterwards. Verification is lost if it disappears.
 
 ## Step 5 — Submit the sitemap
@@ -108,8 +109,9 @@ Needed only if you approve the optional Search Console automation. Skip otherwis
 - Don't create many near-identical keyword pages.
 - Don't block pages in robots.txt to remove them from Google. Use `noindex` (Claude handles this in the build).
 
-## What is already automatic (after Stage B)
+## What is already automatic
 
 Page titles and descriptions, canonical URLs, the sitemap and its dates, structured data (WebSite + Organization),
-the noindex on the 404 page, social preview tags, and a check on every push that fails the deploy on serious SEO
-errors.
+the noindex on the 404 page, social preview tags, and `npm run verify` on every push and pull request, which stops
+the deploy on serious SEO errors. The `nexascan-seo` Claude Code skill (`.claude/skills/nexascan-seo/`) runs the
+audit and explains the results on request; it does not run on a schedule by itself.
