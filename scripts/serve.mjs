@@ -13,7 +13,9 @@ const types = { '.html': 'text/html; charset=utf-8', '.css': 'text/css', '.js': 
 
 http.createServer(async (req, res) => {
   const url = decodeURIComponent(new URL(req.url, 'http://x').pathname);
-  if (!url.startsWith(base)) { res.writeHead(302, { Location: base }); return res.end(); }
+  // Like the github.io host: only "/" leads to the project; anything else outside it (e.g. /robots.txt) is a 404.
+  if (url === '/') { res.writeHead(302, { Location: base }); return res.end(); }
+  if (!url.startsWith(base)) { res.writeHead(404, { 'Content-Type': 'text/plain' }); return res.end('Not found'); }
   let file = path.join(dist, url.slice(base.length));
   try {
     const s = await stat(file);
