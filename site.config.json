@@ -8,6 +8,10 @@
   "supportEmail": "[SUPPORT EMAIL REQUIRED]",
   "privacyEmail": "[PRIVACY CONTACT EMAIL REQUIRED]",
   "policyDate": "[POLICY EFFECTIVE DATE REQUIRED]",
+  "seo": {
+    "$comment": "googleSiteVerification: the content value of Search Console's HTML-tag verification (docs/SEO-MANUAL-STEPS.md, Step 4). Leave empty until you have it; the tag is then added to the home page.",
+    "googleSiteVerification": ""
+  },
   "knownPlaceholders": [
     "[SUPPORT EMAIL REQUIRED]",
     "[PRIVACY CONTACT EMAIL REQUIRED]",

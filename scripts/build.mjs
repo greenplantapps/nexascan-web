@@ -1,17 +1,20 @@
 // Builds the static site into dist/.
 //
 // Every page in src/pages is an HTML fragment whose first line is a JSON comment:
-//   <!--{"title":"…","description":"…","nav":"features"}-->
+//   <!--{"title":"…","description":"…","nav":"features"}-->       add "index": false to keep a page out of search
 // The build wraps it in src/layout.html, replacing:
 //   {{root}}         a relative prefix to the site root ("./", "../"), so the site works at
 //                    https://<user>.github.io/nexascan-web/ and at a custom domain alike
-//   {{title}} {{description}} {{canonical}} {{og_image}} {{year}}
+//   {{seo_head}}     canonical + og:url (indexable pages) or robots noindex; JSON-LD and the Search Console
+//                    verification tag on the home page
+//   {{title}} {{description}} {{og_image}} {{year}}
 //   {{nav:<key>}}    aria-current="page" on the active nav link
 //   {{include:name}} a partial from src/partials
 //   {{config:key}}   a value from site.config.json (store URL, contact email …)
 //   {{gen:name}}     HTML generated from src/data/plans.json (Free/Pro facts), so no page repeats that list by hand
 // Pages at src/pages/<name>/index.html become dist/<name>/index.html, so /privacy/ works directly.
 import { readFile, writeFile, mkdir, readdir, cp, rm, stat } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -20,6 +23,8 @@ const src = path.join(root, 'src');
 const dist = path.join(root, 'dist');
 const config = JSON.parse(await readFile(path.join(root, 'site.config.json'), 'utf8'));
 const plans = JSON.parse(await readFile(path.join(src, 'data', 'plans.json'), 'utf8'));
+const siteBase = config.siteUrl.replace(/\/$/, '');
+const pages = [];
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 const proTag = '<span class="tag tag-pro">Pro</span>';
@@ -49,6 +54,35 @@ ${plans.compare.map((r) => `            <tr><th scope="row">${esc(r.feature)}</t
     ? `${esc(plans.pricing.monthly)} a month or ${esc(plans.pricing.annual)} a year in the ${esc(plans.pricing.region)}. Google Play shows the price for your country before you pay.`
     : 'Monthly or yearly subscription. Google Play shows the price for your country before you pay.'),
 };
+
+// Site identity for Google (home page only): the site name and who publishes it. Only facts that are visible on the
+// site; no ratings, no logo claim for the organisation (the NexaScan logo is the product's, not the company's).
+function jsonLd() {
+  const data = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'WebSite', '@id': `${siteBase}/#website`, name: config.appName, url: config.siteUrl, inLanguage: 'en-GB',
+        publisher: { '@id': `${siteBase}/#organization` } },
+      { '@type': 'Organization', '@id': `${siteBase}/#organization`, name: config.developer, url: config.siteUrl },
+    ],
+  };
+  return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
+}
+
+// The sitemap's lastmod is the date of the last commit that touched a page's own content. Without full git history
+// (no git, or a shallow CI clone) it is left out rather than guessed: Google ignores lastmod it can't trust.
+const git = process.env.GIT || 'git';
+const gitHistory = (() => {
+  try { return execFileSync(git, ['rev-parse', '--is-shallow-repository'], { cwd: root, encoding: 'utf8' }).trim() === 'false'; }
+  catch { return false; }
+})();
+function lastModified(files) {
+  if (!gitHistory) return '';
+  try {
+    return execFileSync(git, ['log', '-1', '--format=%cs', '--', ...files.map((f) => path.relative(root, f))],
+      { cwd: root, encoding: 'utf8' }).trim();
+  } catch { return ''; }
+}
 
 async function walk(dir) {
   const out = [];
@@ -102,23 +136,35 @@ for (const file of pageFiles) {
   // site's absolute base path instead.
   const rootPrefix = rel === '404.html' ? new URL(config.siteUrl).pathname : depth === 0 ? './' : '../'.repeat(depth);
   const pagePath = rel === 'index.html' ? '' : rel.replace(/index\.html$/, '').replace(/\.html$/, '.html');
+  const canonical = siteBase + '/' + pagePath;
+  // Index control lives in the front matter: "index": false gives the page a robots noindex and keeps it out of the
+  // sitemap. The 404 page is never indexable. A noindexed page gets no canonical (it has no URL of its own to claim).
+  const indexable = rel !== '404.html' && front.index !== false;
+  pages.push({ rel, file, canonical, indexable, body });
+  const head = [
+    indexable ? `<link rel="canonical" href="${canonical}">` : '<meta name="robots" content="noindex">',
+    indexable ? `<meta property="og:url" content="${canonical}">` : '',
+    rel === 'index.html' && config.seo?.googleSiteVerification
+      ? `<meta name="google-site-verification" content="${esc(config.seo.googleSiteVerification)}">` : '',
+    rel === 'index.html' ? jsonLd() : '',
+  ].filter(Boolean).join('\n  ');
   const vars = {
     root: rootPrefix,
-    title: front.title,
-    description: front.description,
+    title: esc(front.title),
+    description: esc(front.description),
     nav: front.nav ?? '',
     bodyClass: front.bodyClass ?? '',
-    canonical: config.siteUrl.replace(/\/$/, '') + '/' + pagePath,
-    og_image: config.siteUrl.replace(/\/$/, '') + '/assets/brand/og-image.png',
+    seo_head: head,
+    og_image: siteBase + '/assets/brand/og-image.png',
     year: String(new Date().getFullYear()),
     // The one switch for launch day: set storeUrl in site.config.json and every download button goes live.
     store_href: config.storeUrl || `${rootPrefix}#download`,
-    store_label: config.storeUrl ? 'Get it on Google Play' : 'Coming soon on Google Play',
+    store_label: config.storeUrl ? 'Get it on Google Play' : 'Coming to Google Play',
     store_rel: config.storeUrl ? 'rel="noopener"' : '',
     download_heading: config.storeUrl ? 'Get NexaScan on Google Play' : 'NexaScan is coming to Google Play',
     download_text: config.storeUrl
-      ? 'Install it on your Android phone and scan your first document in seconds.'
-      : 'Android first. When the listing goes live, this button will take you straight to it.',
+      ? 'Free to download for Android phones. Scan your first document in seconds.'
+      : 'For Android phones. When the Google Play listing opens, this button will take you straight to it.',
   };
   const html = render(layout.replace('{{content}}', body), vars);
   if (/\{\{[\w:.-]+\}\}/.test(html)) throw new Error(`${rel}: unresolved placeholder ${html.match(/\{\{[\w:.-]+\}\}/)[0]}`);
@@ -129,16 +175,21 @@ for (const file of pageFiles) {
 
 // Static assets, copied as they are.
 await cp(path.join(root, 'assets'), path.join(dist, 'assets'), { recursive: true });
-for (const file of ['robots.txt', '.nojekyll']) {
-  try { await stat(path.join(root, 'public', file)); await cp(path.join(root, 'public', file), path.join(dist, file)); } catch { /* optional */ }
+try { await stat(path.join(root, 'public', '.nojekyll')); await cp(path.join(root, 'public', '.nojekyll'), path.join(dist, '.nojekyll')); } catch { /* optional */ }
+
+// sitemap.xml: the canonical URL of every indexable page, nothing else.
+const entries = pages.filter((p) => p.indexable).sort((a, b) => a.canonical.length - b.canonical.length || a.canonical.localeCompare(b.canonical)).map((p) => {
+  const lastmod = lastModified(p.body.includes('{{gen:') ? [p.file, path.join(src, 'data', 'plans.json')] : [p.file]);
+  return `  <url><loc>${p.canonical}</loc>${lastmod ? `<lastmod>${lastmod}</lastmod>` : ''}</url>`;
+});
+await writeFile(path.join(dist, 'sitemap.xml'),
+  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${entries.join('\n')}\n</urlset>\n`);
+
+// robots.txt only counts at the root of a host. On a project site (https://<owner>.github.io/<repo>/) a file here
+// would be ignored, so none is written; the sitemap is submitted in Search Console instead. With a custom domain
+// (siteUrl at a host root) the build writes one that allows everything and names the sitemap.
+if (new URL(config.siteUrl).pathname === '/') {
+  await writeFile(path.join(dist, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${siteBase}/sitemap.xml\n`);
 }
 
-// sitemap.xml from the built pages (404 excluded).
-const urls = pageFiles
-  .map((f) => path.relative(path.join(src, 'pages'), f).replaceAll('\\', '/'))
-  .filter((rel) => rel !== '404.html')
-  .map((rel) => config.siteUrl.replace(/\/$/, '') + '/' + (rel === 'index.html' ? '' : rel.replace(/index\.html$/, '')));
-await writeFile(path.join(dist, 'sitemap.xml'),
-  `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((u) => `  <url><loc>${u}</loc></url>`).join('\n')}\n</urlset>\n`);
-
-console.log(`Built ${pageFiles.length} pages into dist/`);
+console.log(`Built ${pageFiles.length} pages into dist/ (${entries.length} in sitemap${gitHistory ? '' : ', no lastmod: full git history unavailable'})`);
