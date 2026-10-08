@@ -1,6 +1,7 @@
 // Image pipeline (run locally; outputs are committed so the deploy needs no native dependencies).
-//  1. Brand: favicon-32/48.png, apple-touch-icon.png and the 1200x630 og-image.png, all from the app's own logo
-//     (assets/brand/nexascan-logo.png, copied from the app repo's Resources/Branding/<brand>/app_logo.png).
+//  1. Brand: the 192 px site logo (assets/brand/nexascan-logo.png: shown at 28–96 px, so 2x is enough), the
+//     favicons, apple-touch-icon.png and the 1200x630 og-image.png, all from the app's own full-size logo
+//     (src/brand/nexascan-logo.png, copied from the app repo's Resources/Branding/<brand>/app_logo.png; not published).
 //  2. Screenshots: every PNG in screenshots-raw/ (private, gitignored) → assets/screenshots/<name>.webp at 540 px
 //     wide (2x for the ~270 px phone frames). Only captures that were reviewed for personal data belong in there.
 //     Every capture loses the phone's status bar and gesture bar (Pixel 9: top 173 px, bottom 63 px), so no clock,
@@ -13,8 +14,9 @@ import { fileURLToPath } from 'node:url';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const brand = path.join(root, 'assets', 'brand');
-const logo = await readFile(path.join(brand, 'nexascan-logo.png'));
+const logo = await readFile(path.join(root, 'src', 'brand', 'nexascan-logo.png'));
 
+await sharp(logo).resize(192, 192).png({ compressionLevel: 9, palette: true, quality: 90 }).toFile(path.join(brand, 'nexascan-logo.png'));
 await sharp(logo).resize(32, 32).png().toFile(path.join(brand, 'favicon-32.png'));
 await sharp(logo).resize(48, 48).png().toFile(path.join(brand, 'favicon-48.png'));
 await sharp(logo).resize(180, 180).flatten({ background: '#011F36' }).png().toFile(path.join(brand, 'apple-touch-icon.png'));

@@ -8,8 +8,10 @@
     "images": "node scripts/images.mjs",
     "build": "node scripts/build.mjs",
     "check": "node scripts/check.mjs",
+    "seo": "node scripts/seo-audit.mjs",
+    "seo:live": "node scripts/seo-audit.mjs --live",
     "serve": "node scripts/serve.mjs",
-    "verify": "npm run build && npm run check"
+    "verify": "npm run build && npm run check && npm run seo"
   },
   "devDependencies": {
     "sharp": "^0.34.3"
