@@ -35,7 +35,7 @@ const cell = (v) => (v === true ? '<span class="yes" aria-label="Included">✓</
 const generators = {
   'tool-groups': () => plans.groups.map((g) => `
         <article class="group reveal">
-          <h3>${esc(g.name)}</h3>
+          <h2 class="h3">${esc(g.name)}</h2>
           <p>${esc(g.summary)}</p>
           <ul class="tool-list">
 ${g.tools.map((t) => `            <li><strong>${esc(t.name)}${t.tier === 'pro' ? ` ${proTag}` : ''}</strong><span>${esc(t.benefit)}${t.limit ? ` <em>Free: ${esc(t.limit)}.</em>` : ''}</span></li>`).join('\n')}
@@ -161,6 +161,10 @@ for (const file of pageFiles) {
     store_href: config.storeUrl || `${rootPrefix}#download`,
     store_label: config.storeUrl ? 'Get it on Google Play' : 'Coming to Google Play',
     store_rel: config.storeUrl ? 'rel="noopener"' : '',
+    // The official Google Play badge appears only with a real listing to link to (Google's badge guidelines).
+    store_cta: config.storeUrl
+      ? `<a class="store-badge" href="${esc(config.storeUrl)}" rel="noopener"><img src="${rootPrefix}assets/brand/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
+      : `<a class="button" href="${rootPrefix}#download">Coming to Google Play</a>`,
     download_heading: config.storeUrl ? 'Get NexaScan on Google Play' : 'NexaScan is coming to Google Play',
     download_text: config.storeUrl
       ? 'Free to download for Android phones. Scan your first document in seconds.'
