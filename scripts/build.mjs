@@ -10,7 +10,8 @@
 //   {{title}} {{description}} {{og_image}} {{year}}
 //   {{nav:<key>}}    aria-current="page" on the active nav link
 //   {{include:name}} a partial from src/partials
-//   {{config:key}}   a value from site.config.json (store URL, contact email …)
+//   {{config:key}}   a value from site.config.json (store URL, developer name …)
+//   {{email:key}}    a contact address from site.config.json as a mailto link (or its "[… REQUIRED]" marker)
 //   {{gen:name}}     HTML generated from src/data/plans.json (Free/Pro facts), so no page repeats that list by hand
 // Pages at src/pages/<name>/index.html become dist/<name>/index.html, so /privacy/ works directly.
 import { readFile, writeFile, mkdir, readdir, cp, rm, stat } from 'node:fs/promises';
@@ -144,6 +145,13 @@ function render(template, vars, depth = 0) {
     .replace(/\{\{gen:([\w-]+)\}\}/g, (_, name) => {
       if (!(name in generators)) throw new Error(`unknown generator ${name}`);
       return generators[name]();
+    })
+    .replace(/\{\{email:(\w+)\}\}/g, (_, key) => {
+      // A contact address from site.config.json: a mailto link once it is filled in, the highlighted owner-input
+      // marker while it still reads "[… REQUIRED]".
+      const value = config[key];
+      if (value === undefined) throw new Error(`unknown config key ${key}`);
+      return /REQUIRED\]$/.test(value) ? `<span class="placeholder">${esc(value)}</span>` : `<a href="mailto:${esc(value)}">${esc(value)}</a>`;
     })
     .replace(/\{\{config:([\w.]+)\}\}/g, (_, key) => {
       const value = key.split('.').reduce((o, k) => o?.[k], config);

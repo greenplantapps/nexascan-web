@@ -11,9 +11,9 @@ Prepared 2026-10-08. This is a checklist, not legal advice: for the legal items,
 
 | # | Item | Where it appears | Answer |
 |---|---|---|---|
-| A1 | **Support email** | Support, FAQ and Terms pages; Play listing contact email | |
-| A2 | **Privacy contact email** (may be the same as A1) | Privacy Policy, Support page | |
-| A3 | Should a contact form or phone number appear? (default: email only) | Support page | |
+| A1 | **Support email** | Support, FAQ and Terms pages; Play listing contact email | greenplant.apps@gmail.com (added 2026-10-09) |
+| A2 | **Privacy contact email** (may be the same as A1) | Privacy Policy, Support page | Same as A1 for now; tell Claude if privacy needs its own address |
+| A3 | Should a contact form or phone number appear? (default: email only) | Support page | Email only (default) |
 
 Tip: use a dedicated address on a domain you control (for example `support@yourdomain`), not a personal inbox.
 Play Console also shows this email publicly.

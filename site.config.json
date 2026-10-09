@@ -6,16 +6,14 @@
   "appName": "NexaScan",
   "descriptor": "AI Scanner & PDF Tools",
   "developer": "GreenPlant Technologies",
-  "supportEmail": "[SUPPORT EMAIL REQUIRED]",
-  "privacyEmail": "[PRIVACY CONTACT EMAIL REQUIRED]",
+  "supportEmail": "greenplant.apps@gmail.com",
+  "privacyEmail": "greenplant.apps@gmail.com",
   "policyDate": "[POLICY EFFECTIVE DATE REQUIRED]",
   "seo": {
     "$comment": "googleSiteVerification: the content value of Search Console's HTML-tag verification (docs/SEO-MANUAL-STEPS.md, Step 4). Leave empty until you have it; the tag is then added to the home page.",
     "googleSiteVerification": ""
   },
   "knownPlaceholders": [
-    "[SUPPORT EMAIL REQUIRED]",
-    "[PRIVACY CONTACT EMAIL REQUIRED]",
     "[POLICY EFFECTIVE DATE REQUIRED]",
     "[LEGAL ENTITY DETAILS REQUIRED]",
     "[LICENCE DATA RETENTION REQUIRED]",
