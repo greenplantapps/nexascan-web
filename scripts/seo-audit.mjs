@@ -164,7 +164,7 @@ for (const file of files.filter((f) => f.endsWith('.html'))) {
   else if (page.index === 'index' && (page.description.length < 70 || page.description.length > 165)) add(WARNING, rel, `Description is ${page.description.length} characters.`, 'About 70–160 characters reads well in results.');
 
   // Launch state and images.
-  if (config.storeUrl && /Coming (soon )?(on|to) Google Play/i.test(html)) add(ERROR, rel, 'storeUrl is set but the page still says "Coming to Google Play".', 'Rebuild; the build switches every CTA.');
+  if ((config.storeUrl || config.testUrl) && /Coming (soon )?(on|to) Google Play/i.test(html)) add(ERROR, rel, 'An install link is set but the page still says "Coming to Google Play".', 'Rebuild; the build switches every CTA.');
   for (const img of html.match(/<img\b[^>]*>/g) ?? []) if (!/\bwidth="\d+"/.test(img) || !/\bheight="\d+"/.test(img)) add(WARNING, rel, `Image without width/height (layout shift): ${img.slice(0, 70)}`, 'Add the intrinsic size.', true);
   for (const marker of new Set(html.match(/\[[A-Z][A-Z0-9 /&'-]+REQUIRED\]/g) ?? [])) add(WARNING, rel, `Owner input still missing: ${marker}.`, 'See docs/OWNER-DETAILS-NEEDED.md.');
 }
@@ -186,7 +186,9 @@ for (const f of files.filter((x) => /\.(png|jpe?g|webp)$/i.test(x))) {
 // Owner and content recommendations (never failures).
 if (!atHostRoot) add(RECOMMENDATION, 'site', `The site lives under ${site.pathname} on ${site.host}: Google can't show NexaScan's own site name or favicon, and robots.txt can't be used.`, 'Consider a custom domain (docs/SEO-MANUAL-STEPS.md, Step 1).');
 if (!config.seo?.googleSiteVerification) add(RECOMMENDATION, 'site', 'Search Console verification tag not configured.', 'docs/SEO-MANUAL-STEPS.md, Step 4.');
-if (!config.storeUrl) add(RECOMMENDATION, 'site', 'No public Google Play listing yet: download buttons read "Coming to Google Play".', 'Set storeUrl when the listing is public.');
+if (!config.storeUrl) add(RECOMMENDATION, 'site', config.testUrl
+  ? 'No public Google Play listing yet: download buttons install the test version, which works only for invited testers.'
+  : 'No public Google Play listing yet: download buttons read "Coming to Google Play".', 'Set storeUrl when the listing is public.');
 for (const p of indexable) if (p.words < 250) add(RECOMMENDATION, p.file, `Only about ${p.words} words of main content.`, 'Only expand it if users need more; never pad.');
 
 // ── Live checks (optional) ───────────────────────────────────────────────────────────────────────────────────

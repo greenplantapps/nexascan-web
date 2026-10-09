@@ -69,6 +69,40 @@ function jsonLd() {
   return `<script type="application/ld+json">${JSON.stringify(data).replace(/</g, '\\u003c')}</script>`;
 }
 
+// Download buttons, from site.config.json. Three states:
+//   storeUrl (the public listing)  the official Google Play badge everywhere (Google's badge guidelines need a real
+//                                  public listing to link to)
+//   testUrl (a testing opt-in)     "Install the test version", with a note that it is for invited testers: an
+//                                  internal-test link works only for Google accounts added as testers
+//   neither                        "Coming to Google Play", linking to the download section
+function downloadVars(rootPrefix) {
+  if (config.storeUrl) {
+    const href = esc(config.storeUrl);
+    return {
+      store_href: href, store_label: 'Get it on Google Play', store_rel: 'rel="noopener"', store_note: '',
+      store_cta: `<a class="store-badge" href="${href}" rel="noopener"><img src="${rootPrefix}assets/brand/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`,
+      download_heading: 'Get NexaScan on Google Play',
+      download_text: 'Free to download for Android phones. Scan your first document in seconds.',
+    };
+  }
+  if (config.testUrl) {
+    const href = esc(config.testUrl);
+    return {
+      store_href: href, store_label: 'Install the test version', store_rel: 'rel="noopener"',
+      store_cta: `<a class="button" href="${href}" rel="noopener">Install the test version</a>`,
+      store_note: '<p class="store-note">Test version on Google Play, for invited testers.</p>',
+      download_heading: 'Try NexaScan now',
+      download_text: 'NexaScan is being tested on Google Play. Invited testers can install the test version with this link.',
+    };
+  }
+  return {
+    store_href: `${rootPrefix}#download`, store_label: 'Coming to Google Play', store_rel: '', store_note: '',
+    store_cta: `<a class="button" href="${rootPrefix}#download">Coming to Google Play</a>`,
+    download_heading: 'NexaScan is coming to Google Play',
+    download_text: 'For Android phones. When the Google Play listing opens, this button will take you straight to it.',
+  };
+}
+
 // The sitemap's lastmod is the date of the last commit that touched a page's own content. Without full git history
 // (no git, or a shallow CI clone) it is left out rather than guessed: Google ignores lastmod it can't trust.
 const git = process.env.GIT || 'git';
@@ -157,18 +191,7 @@ for (const file of pageFiles) {
     seo_head: head,
     og_image: siteBase + '/assets/brand/og-image.png',
     year: String(new Date().getFullYear()),
-    // The one switch for launch day: set storeUrl in site.config.json and every download button goes live.
-    store_href: config.storeUrl || `${rootPrefix}#download`,
-    store_label: config.storeUrl ? 'Get it on Google Play' : 'Coming to Google Play',
-    store_rel: config.storeUrl ? 'rel="noopener"' : '',
-    // The official Google Play badge appears only with a real listing to link to (Google's badge guidelines).
-    store_cta: config.storeUrl
-      ? `<a class="store-badge" href="${esc(config.storeUrl)}" rel="noopener"><img src="${rootPrefix}assets/brand/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
-      : `<a class="button" href="${rootPrefix}#download">Coming to Google Play</a>`,
-    download_heading: config.storeUrl ? 'Get NexaScan on Google Play' : 'NexaScan is coming to Google Play',
-    download_text: config.storeUrl
-      ? 'Free to download for Android phones. Scan your first document in seconds.'
-      : 'For Android phones. When the Google Play listing opens, this button will take you straight to it.',
+    ...downloadVars(rootPrefix),
   };
   const html = render(layout.replace('{{content}}', body), vars);
   if (/\{\{[\w:.-]+\}\}/.test(html)) throw new Error(`${rel}: unresolved placeholder ${html.match(/\{\{[\w:.-]+\}\}/)[0]}`);

@@ -1,7 +1,8 @@
 {
-  "$comment": "Owner-editable settings. storeUrl: paste the real Google Play listing URL when it exists; while empty, every download button reads 'Coming to Google Play' and links to the download section. siteUrl: the deployed root (change it when a custom domain is added). Items in knownPlaceholders are owner inputs still outstanding (see docs/OWNER-DETAILS-NEEDED.md); scripts/check.mjs fails if a page publishes any other [... REQUIRED] marker.",
+  "$comment": "Owner-editable settings. storeUrl: paste the real (public) Google Play listing URL when it exists; every download button then becomes the Google Play badge. testUrl: a Google Play testing opt-in link; used only while storeUrl is empty, as 'Install the test version' with a note that it is for invited testers. With neither, buttons read 'Coming to Google Play'. siteUrl: the deployed root (change it when a custom domain is added). Items in knownPlaceholders are owner inputs still outstanding (see docs/OWNER-DETAILS-NEEDED.md); scripts/check.mjs fails if a page publishes any other [... REQUIRED] marker.",
   "siteUrl": "https://greenplantapps.github.io/nexascan-web/",
   "storeUrl": "",
+  "testUrl": "https://play.google.com/apps/internaltest/4701617014284921796",
   "appName": "NexaScan",
   "descriptor": "AI Scanner & PDF Tools",
   "developer": "GreenPlant Technologies",
