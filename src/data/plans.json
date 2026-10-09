@@ -1,0 +1,105 @@
+{
+  "$comment": "The one source for what NexaScan offers on Free and Pro. Checked against the app's product catalogue (config/PrivatePdfToolkit/product-catalog.json) at app commit 510bfb1, Google Play versionCode 8, and against the installed app. Change the app first, then this file. The Features and Pricing pages are generated from it. 'limit' is the Free limit; Pro lifts it (the app never promises 'unlimited').",
+  "checked": "2026-10-08",
+  "appVersion": "1.0 (versionCode 8)",
+  "pricing": {
+    "$comment": "Prices come from Google Play at run time, not from the app. Set confirmed to true only when the owner confirms the production prices; until then the site says prices are shown in Google Play.",
+    "confirmed": false,
+    "asOf": "2026-10-08",
+    "region": "UK",
+    "monthly": "£3.99",
+    "annual": "£29.99"
+  },
+  "groups": [
+    {
+      "name": "Create",
+      "summary": "Turn paper and photos into PDFs.",
+      "tools": [
+        { "name": "Scan Document", "benefit": "Finds the page edges live, captures automatically when the page is steady, and straightens every shot.", "tier": "free", "limit": "10 pages per document" },
+        { "name": "Image to PDF", "benefit": "Turn photos into one PDF, or one PDF per photo.", "tier": "free", "limit": "10 images at a time" }
+      ]
+    },
+    {
+      "name": "Edit & sign",
+      "summary": "Finish a document before it goes anywhere.",
+      "tools": [
+        { "name": "Sign PDF", "benefit": "Draw your signature once and place it on the page.", "tier": "free" },
+        { "name": "Crop & Enhance", "benefit": "Re-crop, rotate and clean up the pages of a PDF or photo you already have.", "tier": "free" },
+        { "name": "Edit PDF", "benefit": "Write, draw, sign, pixelate and watermark across every page.", "tier": "pro" },
+        { "name": "Page Numbers", "benefit": "Number pages in the position and style you choose.", "tier": "pro" },
+        { "name": "Watermark", "benefit": "Add a text or logo watermark to a whole PDF.", "tier": "pro" }
+      ]
+    },
+    {
+      "name": "Organise pages",
+      "summary": "Reshape PDFs page by page.",
+      "tools": [
+        { "name": "Merge", "benefit": "Combine PDFs in the order you choose.", "tier": "free", "limit": "3 files at a time" },
+        { "name": "Split", "benefit": "Pull out pages or ranges into new PDFs.", "tier": "free" },
+        { "name": "Manage, rotate, delete and reorder pages", "benefit": "Fix page order and orientation, or remove what you don't need.", "tier": "free" },
+        { "name": "Multi-Page", "benefit": "Fit 2 to 16 pages onto one sheet.", "tier": "pro" }
+      ]
+    },
+    {
+      "name": "View & read text",
+      "summary": "Text recognition runs on your phone.",
+      "tools": [
+        { "name": "Viewer", "benefit": "Open PDFs and images, zoom, and search typed text.", "tier": "free" },
+        { "name": "Extract Text", "benefit": "Recognise the text in a photo or scanned PDF, then copy or share it.", "tier": "free", "limit": "10 pages at a time" },
+        { "name": "Searchable PDF", "benefit": "Add an invisible text layer so a scanned PDF can be searched and copied.", "tier": "free", "limit": "10 pages at a time" },
+        { "name": "OCR Viewer", "benefit": "Select, copy and share text straight off scanned pages.", "tier": "pro" }
+      ]
+    },
+    {
+      "name": "Convert",
+      "summary": "Get the file the next person needs.",
+      "tools": [
+        { "name": "To Word", "benefit": "Editable .docx with paragraphs, headings and tables.", "tier": "free", "limit": "10 pages at a time" },
+        { "name": "To Excel", "benefit": "Tables become sheets, with numbers and dates kept as values.", "tier": "free", "limit": "10 pages at a time" },
+        { "name": "PDF to Images", "benefit": "One JPEG per page.", "tier": "free", "limit": "10 pages at a time" },
+        { "name": "To Word Pro", "benefit": "Word documents that follow the original page layout.", "tier": "pro" },
+        { "name": "To Excel Pro", "benefit": "Spreadsheets that keep complex tables and formatting.", "tier": "pro" }
+      ]
+    },
+    {
+      "name": "Optimise & protect",
+      "summary": "Make it smaller, or lock it.",
+      "tools": [
+        { "name": "Compress", "benefit": "Shrink a PDF for email. Pro adds stronger Balanced and Maximum levels.", "tier": "free", "limit": "files up to 50 MB" },
+        { "name": "Protect", "benefit": "Save a password-protected copy with AES-256 encryption.", "tier": "pro" }
+      ]
+    }
+  ],
+  "looks": {
+    "free": ["Original", "Light", "Enhance", "B&W", "Grayscale"],
+    "proCount": 6,
+    "proNamed": ["No Shadow", "Eco", "Invert"]
+  },
+  "compare": [
+    { "feature": "Document scanner with live page detection and Auto Capture", "free": "Up to 10 pages per document", "pro": "Up to 200 pages per scan" },
+    { "feature": "Import photos and PDF pages into a scan", "free": "10 at a time", "pro": "Free limit lifted" },
+    { "feature": "Clean-up looks", "free": "Original, Light, Enhance, B&W, Grayscale", "pro": "6 more, including No Shadow, Eco and Invert" },
+    { "feature": "Save as PDF or JPEG images", "free": true, "pro": true },
+    { "feature": "Save every page as one long image", "free": false, "pro": true },
+    { "feature": "Text recognition: searchable PDFs and Extract Text", "free": "10 pages at a time", "pro": "Free limit lifted" },
+    { "feature": "Select text on scanned pages (OCR Viewer)", "free": false, "pro": true },
+    { "feature": "PDF or photo to Word and Excel", "free": "10 pages at a time", "pro": "Free limit lifted" },
+    { "feature": "Layout-faithful Word Pro and Excel Pro", "free": false, "pro": true },
+    { "feature": "Merge PDFs", "free": "3 files at a time", "pro": "Free limit lifted" },
+    { "feature": "Split, rotate, reorder and delete pages", "free": true, "pro": true },
+    { "feature": "Compress PDF", "free": "High quality, files up to 50 MB", "pro": "+ Balanced and Maximum, larger files" },
+    { "feature": "Image to PDF and PDF to images", "free": "10 at a time", "pro": "Free limit lifted" },
+    { "feature": "Sign PDF", "free": true, "pro": true },
+    { "feature": "Edit PDF, pixelate, watermarks, page numbers, multi-page sheets", "free": false, "pro": true },
+    { "feature": "Password protection (AES-256)", "free": false, "pro": true },
+    { "feature": "No NexaScan watermark, no ads, no account", "free": true, "pro": true }
+  ],
+  "proHighlights": [
+    "Longer scans and bigger jobs: the 10-page, 3-file and 50 MB Free limits are lifted",
+    "Six more clean-up looks, including No Shadow, Eco and Invert",
+    "Select text on scanned pages, and save pages as one long image",
+    "Word Pro and Excel Pro conversions that follow the original layout",
+    "Edit PDF, watermarks, page numbers and multi-page sheets",
+    "Password protection with AES-256"
+  ]
+}

@@ -2,5 +2,10 @@ node_modules/
 dist/
 # Raw device captures are private working files: only the reviewed, optimised WebP in assets/screenshots is published.
 screenshots-raw/
+# SEO audit output (npm run seo) and any Search Console credentials: never committed.
+.seo-reports/
+*.credentials.json
+client_secret*.json
+gsc-token*.json
 .DS_Store
 Thumbs.db

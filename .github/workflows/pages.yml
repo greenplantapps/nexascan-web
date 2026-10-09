@@ -1,7 +1,11 @@
 name: Deploy to GitHub Pages
 
+# Pull requests into main run the full check (build, links, SEO audit) without deploying.
+# Only a push to main deploys.
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -11,7 +15,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -19,18 +23,25 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Full history, so the sitemap's lastmod comes from each page's last commit (a shallow clone omits it).
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      # The build and link check need no dependencies; sharp is only for re-encoding screenshots locally.
-      - run: npm run build
-      - run: npm run check
+      # Build, link check and SEO audit need no dependencies; sharp is only for re-encoding screenshots locally.
+      # Any SEO ERROR (missing title or canonical, public page noindexed, broken sitemap, bad structured data,
+      # staging URLs) fails here and nothing is deployed. Warnings and recommendations never fail the build.
+      - run: npm run verify
       - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: dist
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

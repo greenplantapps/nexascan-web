@@ -98,4 +98,7 @@ async function photo(svg, name, angle) {
 
 await photo(invoice(), 'demo-invoice.jpg', -4);
 await photo(letter(), 'demo-letter.jpg', 3);
+// Flat A4 pages for printing, so live-camera and creased-paper shots also use fictional content.
+await sharp(Buffer.from(invoice())).png().toFile(path.join(out, 'print-invoice.png'));
+await sharp(Buffer.from(letter())).png().toFile(path.join(out, 'print-letter.png'));
 console.log('demo documents written to', out);

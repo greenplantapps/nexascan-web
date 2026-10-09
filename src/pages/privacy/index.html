@@ -1,10 +1,10 @@
-<!--{"title":"Privacy Policy – NexaScan","description":"How NexaScan handles your documents: processed on your device, stored privately, never uploaded by the app. Includes permissions, third-party components and contact details.","nav":"privacy"}-->
+<!--{"title":"Privacy Policy | NexaScan","description":"How NexaScan handles your data: documents are processed on your phone and never uploaded. Permissions, purchases, components, storage and contact.","nav":"privacy"}-->
 <section class="page-hero" aria-labelledby="privacy-title">
   <div class="container">
     <p class="eyebrow">Privacy</p>
     <h1 id="privacy-title">Privacy Policy</h1>
-    <p class="lead">Your documents are yours. This page explains, in plain language, what NexaScan does with them and what it doesn't.</p>
-    <p class="meta">Effective {{config:policyDate}}. Applies to the NexaScan app for Android.</p>
+    <p class="lead">Your documents are yours. This page explains, in plain language, what NexaScan does with your data and what it doesn't.</p>
+    <p class="meta">Effective <span class="placeholder">{{config:policyDate}}</span>. Applies to the NexaScan app for Android.</p>
   </div>
 </section>
 
@@ -14,85 +14,90 @@
       <h2>The short version</h2>
       <ul>
         <li>Scanning, clean-up, text recognition, conversion and every PDF tool run <strong>on your phone</strong>.</li>
-        <li>NexaScan <strong>does not upload your documents</strong>, images or their text to us or to anyone else. We don't run servers that receive them.</li>
-        <li>There is <strong>no account</strong>, no sign-in, no advertising, and no analytics or crash-reporting service of our own.</li>
-        <li>Your documents are kept in the app's <strong>private storage</strong> and are left out of Google cloud backups.</li>
-        <li>A document leaves the app <strong>only when you share it</strong> or open it in another app.</li>
-        <li>One exception to know about: the text-recognition component from Google (ML Kit) may send <strong>limited usage and diagnostic data</strong> to Google. This never includes your images or document text. Details are below.</li>
+        <li>NexaScan <strong>never uploads your documents</strong>, images or the text in them, to us or to anyone else.</li>
+        <li>There is <strong>no account</strong>, no sign-in, no advertising, and no analytics or crash-reporting service.</li>
+        <li>Your documents are kept in the app's <strong>private storage</strong> and are left out of Google cloud backups. They leave the app <strong>only when you share them</strong>.</li>
+        <li>If you <strong>buy NexaScan Pro</strong>, the app checks your subscription with Google Play and with our licence service. This uses a purchase token and an identifier for your installation, never your documents or your name (section 5).</li>
+        <li>Google's text-recognition component (ML Kit) may send <strong>limited diagnostic data</strong> to Google. It never includes your images or text (section 4).</li>
       </ul>
     </div>
 
     <h2 id="who">1. Who we are</h2>
-    <p>NexaScan is developed by {{config:developer}} ("we", "us"). If you have any question about this policy or your data, contact us at <span class="placeholder">{{config:privacyEmail}}</span>.</p>
-    <p><span class="placeholder">[LEGAL ENTITY DETAILS REQUIRED]</span></p>
+    <p>NexaScan is developed by {{config:developer}} ("we", "us"), which is responsible for the data described here. <span class="placeholder">[LEGAL ENTITY DETAILS REQUIRED]</span></p>
+    <p>For any question about this policy or your data, contact us at <span class="placeholder">{{config:privacyEmail}}</span>.</p>
 
-    <h2 id="data-accessed">2. What the app works with</h2>
-    <p>To do its job, NexaScan works with the following on your device:</p>
+    <h2 id="data-accessed">2. What the app works with on your phone</h2>
     <ul>
       <li><strong>Camera images</strong>, when you scan a document.</li>
       <li><strong>Files you choose</strong>: PDFs and images (JPG, JPEG, PNG) you pick with Android's file picker, or send to NexaScan from another app with Open with or Share.</li>
       <li><strong>The documents it creates</strong>: PDFs, images, Word and Excel files, and the text it recognises in them.</li>
-      <li><strong>Passwords you type</strong> in Password Protect. They are used once to encrypt the new copy, and are never saved or logged.</li>
+      <li><strong>Passwords you type</strong> in Protect. They are used once to encrypt the new copy, and are never saved or logged.</li>
       <li><strong>A few app settings</strong>, such as whether you've seen the introduction screens.</li>
     </ul>
-    <p>All of this stays on your device. We don't receive it.</p>
+    <p>All of this stays on your phone. We never receive it.</p>
 
-    <h2 id="collected">3. Data we collect</h2>
-    <p><strong>We do not collect personal data.</strong> NexaScan has no account, and it doesn't send your documents, images, recognised text, file names or contacts to us. It also has no advertising or analytics SDK of our own. The app itself makes no network requests.</p>
+    <h2 id="collected">3. What we collect</h2>
+    <p>We don't collect your documents, images, recognised text, file names or contacts, and NexaScan has no advertising or analytics SDK. The only data that reaches us is the licence data described in section 5, and only if you buy NexaScan Pro.</p>
 
     <h2 id="third-parties">4. Third-party components</h2>
-    <p>NexaScan uses these components. All of them run on your device:</p>
     <div class="table-wrap">
       <table>
-        <thead><tr><th scope="col">Component</th><th scope="col">What it does</th><th scope="col">Data sent off the device</th></tr></thead>
+        <thead><tr><th scope="col">Component</th><th scope="col">What it does</th><th scope="col">Data sent off the phone</th></tr></thead>
         <tbody>
-          <tr><td>Google ML Kit Text Recognition (bundled model)</td><td>Recognises text in scans and images, on the device.</td><td>Your images and text are <strong>not</strong> sent. ML Kit may send limited diagnostic and usage information (for example device model, app version and how the feature performed) to Google, to maintain and improve the service. See <a href="https://developers.google.com/ml-kit/android-data-disclosure" rel="noopener">Google's ML Kit data disclosure</a>.</td></tr>
+          <tr><td>Google ML Kit Text Recognition (model built into the app)</td><td>Recognises text in scans and images, on the phone.</td><td>Your images and text are <strong>not</strong> sent. ML Kit may send limited diagnostic and usage information (for example device model, app version and how the feature performed) to Google. See <a href="https://developers.google.com/ml-kit/android-data-disclosure" rel="noopener">Google's ML Kit data disclosure</a>.</td></tr>
+          <tr><td>Google Play Billing</td><td>Shows NexaScan Pro plans, handles purchases and restores them.</td><td>Handled by Google Play under <a href="https://policies.google.com/privacy" rel="noopener">Google's privacy policy</a>. The app contacts it only when you open the Pro screen, restore purchases, or have a subscription to check.</td></tr>
           <tr><td>AndroidX CameraX</td><td>Camera preview and capture for scanning.</td><td>None.</td></tr>
           <tr><td>PDF, image and Office libraries (PDFsharp, PdfPig, ImageSharp, Open XML SDK)</td><td>Reading and writing PDFs, images, Word and Excel files.</td><td>None.</td></tr>
         </tbody>
       </table>
     </div>
-    <p>Because of ML Kit, the installed app holds Android's Internet permission. NexaScan's own code doesn't use it, and every feature works without a connection.</p>
 
-    <h2 id="shared">5. Data sharing</h2>
-    <p>We don't sell, rent or share your data, because we don't have it. When you tap <strong>Share</strong> or <strong>Open</strong>, Android passes the chosen file to the app you pick. What happens next is governed by that app's privacy policy.</p>
+    <h2 id="purchases">5. Purchases and the licence check</h2>
+    <p>NexaScan Pro is bought through Google Play. Google processes the payment, and we never receive your card or payment details.</p>
+    <p>After a purchase, the app confirms the subscription with our licence service so that Pro can be unlocked, kept active and restored. For this, the app sends:</p>
+    <ul>
+      <li>the <strong>purchase token</strong> that Google Play issues for your subscription;</li>
+      <li>an <strong>installation identifier</strong>, derived from a key that the app creates on your phone, together with a signature proving the request comes from this installation.</li>
+    </ul>
+    <p>The licence service doesn't receive your name, email address, documents or their text, and you don't need an account. It runs on Amazon Web Services in the United Kingdom (London region). <span class="placeholder">[LICENCE DATA RETENTION REQUIRED]</span></p>
+    <p>If you never buy Pro, the app doesn't contact the licence service at all.</p>
 
-    <h2 id="permissions">6. Permissions</h2>
+    <h2 id="shared">6. Data sharing</h2>
+    <p>We don't sell or rent your data. When you tap <strong>Share</strong> or <strong>Open</strong>, Android passes the chosen file to the app you pick, and that app's privacy policy applies. The licence data in section 5 is processed by Amazon Web Services on our behalf, and Google Play handles purchases under its own terms.</p>
+
+    <h2 id="permissions">7. Permissions</h2>
     <div class="table-wrap">
       <table>
         <thead><tr><th scope="col">Permission</th><th scope="col">Why</th></tr></thead>
         <tbody>
           <tr><td>Camera</td><td>To scan documents. It is requested the first time you scan and used only on the scanner screen. You can refuse it and still use every other tool.</td></tr>
-          <tr><td>Photos and files (older Android versions)</td><td>To open the images and PDFs you choose to import.</td></tr>
-          <tr><td>Internet and network state</td><td>Added by Google ML Kit for its diagnostic data (section 4). NexaScan's own features don't use the network.</td></tr>
+          <tr><td>Photos and files</td><td>To open the images and PDFs you choose to import (older Android versions ask for storage access instead).</td></tr>
+          <tr><td>Internet and network state</td><td>For Google Play purchases and the licence check (section 5), and for ML Kit's diagnostic data (section 4). Scanning and every document tool work without a connection.</td></tr>
+          <tr><td>Google Play billing</td><td>To offer and manage the NexaScan Pro subscription.</td></tr>
         </tbody>
       </table>
     </div>
 
-    <h2 id="storage">7. Where your documents are stored</h2>
+    <h2 id="storage">8. Where your documents are stored</h2>
     <ul>
       <li>Documents you save are kept in NexaScan's <strong>private app storage</strong>. Other apps can't read this area, and it is protected by your phone's own security and encryption.</li>
-      <li>This document storage is <strong>excluded from Google cloud backup</strong>. On Android 12 and later, a direct device-to-device transfer to a new phone may copy it.</li>
-      <li>Working files are kept in the app's private cache while a task runs, and are deleted automatically afterwards. Copies made for sharing are removed within about a day.</li>
+      <li>This storage is <strong>excluded from Google cloud backup</strong>. On Android 12 and later, a direct device-to-device transfer to a new phone may copy it. The installation identifier and licence information are excluded from both.</li>
+      <li>Working files are kept in the app's private cache while a task runs and are deleted afterwards. Leftover temporary files are removed after about a day.</li>
       <li>NexaScan doesn't save documents to your gallery or shared folders. They leave the app only when you share or open them.</li>
     </ul>
 
-    <h2 id="retention">8. Retention and deletion</h2>
-    <p>Your documents stay on your device until you delete them. You can delete any document in the app. Uninstalling NexaScan, or clearing its storage in Android Settings, removes all its documents and settings from the device. We hold no copy, so there's nothing for us to delete on a server.</p>
+    <h2 id="retention">9. Retention and deletion</h2>
+    <p>Your documents stay on your phone until you delete them. You can delete any document in the app, and uninstalling NexaScan or clearing its storage in Android Settings removes all its documents and settings. We hold no copy of your documents. To ask about or delete licence data linked to your installation, email <span class="placeholder">{{config:privacyEmail}}</span>.</p>
 
-    <h2 id="security">9. Security</h2>
+    <h2 id="security">10. Security</h2>
     <ul>
-      <li>Processing happens on the device, so your documents don't travel over the Internet when you use NexaScan.</li>
-      <li>Password Protect encrypts a new copy of the PDF with <strong>AES-256</strong>. Your original file is unchanged, and your password isn't stored.</li>
-      <li>The Password Protect screen blocks screenshots while you type.</li>
-      <li>NexaScan doesn't add its own encryption to documents in its storage. They rely on Android's app sandbox and device encryption. For sensitive files, use Password Protect.</li>
+      <li>Processing happens on the phone, so your documents don't travel over the Internet when you use NexaScan.</li>
+      <li>Protect (Pro) encrypts a new copy of the PDF with <strong>AES-256</strong>. Your original file is unchanged, and your password isn't stored. The Protect screen blocks screenshots while you type.</li>
+      <li>NexaScan doesn't add its own encryption to documents in its storage. They rely on Android's app sandbox and device encryption. For sensitive files, use Protect.</li>
     </ul>
 
-    <h2 id="children">10. Children</h2>
+    <h2 id="children">11. Children</h2>
     <p>NexaScan is a general-purpose document tool. It isn't directed at children, and it doesn't knowingly collect data from anyone, including children.</p>
-
-    <h2 id="purchases">11. Purchases</h2>
-    <p>NexaScan Pro is bought through Google Play. Google processes the payment under its own privacy policy, and we never receive your card or payment details. The app asks Google Play whether your account has an active subscription, so that it can unlock Pro features. Buying Pro doesn't change how your documents are handled: they stay on your device.</p>
 
     <h2 id="changes">12. Changes to this policy</h2>
     <p>If the app's data practices change, we will update this page and its effective date before the change reaches the app.</p>
