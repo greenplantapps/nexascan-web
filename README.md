@@ -18,7 +18,9 @@ Static HTML/CSS/JS, built by a small dependency-free Node script and deployed to
 ## Everyday edits
 
 - **Launch day:** put the public Google Play listing URL in `site.config.json` → `storeUrl`. Every download
-  button becomes the official "Get it on Google Play" badge; until then they read "Coming to Google Play".
+  button becomes the official "Get it on Google Play" badge. Until then, `testUrl` (a Google Play testing
+  opt-in link) makes them "Install the test version" with a note that it is for invited testers; with neither,
+  they read "Coming to Google Play".
 - **Free and Pro facts:** `src/data/plans.json` is the only place they are written. The Features tool groups
   and the Pricing table are generated from it. Prices appear only after `pricing.confirmed` is set to `true`.
 - **Contacts and legal details:** `supportEmail`, `privacyEmail`, `policyDate` and `developer` in

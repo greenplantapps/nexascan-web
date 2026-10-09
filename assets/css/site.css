@@ -93,6 +93,7 @@ p { margin: 0 0 1em; }
 .button-light:hover { background: #6BE3D5; color: var(--teal-950); }
 .button-small { min-height: 42px; padding: 8px 18px; font-size: .94rem; }
 .button-row { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 30px; }
+.store-note { margin: 12px 0 0; font-size: .9rem; color: var(--ink-soft); }
 .store-badge { display: inline-block; line-height: 0; border-radius: 12px; }
 /* The badge artwork has its own clear space; show it at 56 px tall (well above Google's minimum). */
 .store-badge img { height: 78px; width: auto; margin: -11px -12px; }
