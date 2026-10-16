@@ -73,32 +73,45 @@ function jsonLd() {
 // Download buttons, from site.config.json. Three states:
 //   storeUrl (the public listing)  the official Google Play badge everywhere (Google's badge guidelines need a real
 //                                  public listing to link to)
-//   testUrl (a testing opt-in)     "Install the test version", with a note that it is for invited testers: an
-//                                  internal-test link works only for Google accounts added as testers
+//   testUrl (a testing opt-in)     "Install the test version", with a note that it is for invited testers: a test
+//                                  link works only for Google accounts on the test's tester list. testUrl is Play
+//                                  Console's "Join on the web" link; with testAndroidUrl ("Join on Android") also
+//                                  set, the note and the download section offer both
 //   neither                        "Coming to Google Play", linking to the download section
+// download_cta is the download section's buttons: store_cta, except for a test with both join links.
 function downloadVars(rootPrefix) {
   if (config.storeUrl) {
     const href = esc(config.storeUrl);
+    const cta = `<a class="store-badge" href="${href}" rel="noopener"><img src="${rootPrefix}assets/brand/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`;
     return {
       store_href: href, store_label: 'Get it on Google Play', store_rel: 'rel="noopener"', store_note: '',
-      store_cta: `<a class="store-badge" href="${href}" rel="noopener"><img src="${rootPrefix}assets/brand/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`,
+      store_cta: cta, download_cta: cta,
       download_heading: 'Get NexaScan on Google Play',
       download_text: 'Free to download for Android phones. Scan your first document in seconds.',
     };
   }
   if (config.testUrl) {
-    const href = esc(config.testUrl);
+    const web = esc(config.testUrl);
+    const android = config.testAndroidUrl ? esc(config.testAndroidUrl) : '';
+    const cta = `<a class="button" href="${web}" rel="noopener">Install the test version</a>`;
     return {
-      store_href: href, store_label: 'Install the test version', store_rel: 'rel="noopener"',
-      store_cta: `<a class="button" href="${href}" rel="noopener">Install the test version</a>`,
-      store_note: '<p class="store-note">Test version on Google Play, for invited testers.</p>',
+      store_href: web, store_label: 'Install the test version', store_rel: 'rel="noopener"', store_cta: cta,
+      store_note: android
+        ? `<p class="store-note">Test version on Google Play, for invited testers. Join <a href="${android}" rel="noopener">on Android</a> or <a href="${web}" rel="noopener">on the web</a>.</p>`
+        : '<p class="store-note">Test version on Google Play, for invited testers.</p>',
+      download_cta: android
+        ? `<a class="button" href="${android}" rel="noopener">Join on Android</a><a class="button button-outline" href="${web}" rel="noopener">Join on the web</a>`
+        : cta,
       download_heading: 'Try NexaScan now',
-      download_text: 'NexaScan is being tested on Google Play. Invited testers can install the test version with this link.',
+      download_text: android
+        ? 'NexaScan is being tested on Google Play. Invited testers can join on an Android phone or on the web, then install the test version.'
+        : 'NexaScan is being tested on Google Play. Invited testers can install the test version with this link.',
     };
   }
+  const cta = `<a class="button" href="${rootPrefix}#download">Coming to Google Play</a>`;
   return {
     store_href: `${rootPrefix}#download`, store_label: 'Coming to Google Play', store_rel: '', store_note: '',
-    store_cta: `<a class="button" href="${rootPrefix}#download">Coming to Google Play</a>`,
+    store_cta: cta, download_cta: cta,
     download_heading: 'NexaScan is coming to Google Play',
     download_text: 'For Android phones. When the Google Play listing opens, this button will take you straight to it.',
   };
